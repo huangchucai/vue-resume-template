@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function inputByUrl(url) {
+  let name = decodeURIComponent(url);
+  const atIndex = name.indexOf('@');
+  const end = !!~atIndex ? atIndex : name.indexOf('?');
+  name = name.substring(name.lastIndexOf('/') + 1, !!~end ? end : undefined);
+  return {
+    thumb: url,
+    url,
+    value: url,
+    name
+  };
+}
+  </script>
+</body>
+</html>
