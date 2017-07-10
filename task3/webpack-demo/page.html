@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
@@ -11,41 +12,98 @@
     }
   </style>
 </head>
+
 <body>
-<div id="app">
-  <div class="panel panel-default" style="max-width: 900px; margin: 50px auto">
-    <div class="panel-body">
-      <div class="newTask form-group">
-        <input type="text" v-model="todotext" @keyup.enter='addTodo' class="form-control">
-      </div>
-      <ol style="list-style: none">
-        <li v-for="(item,index) in todoList" style="font-size: 16px;margin-bottom: 10px" >
+  <div id="app">
+    <div class="panel panel-default" style="max-width: 900px; margin: 50px auto">
+      <div class="panel-body">
+        <section id="signInAndSignUp" v-if="!currentUser">
           <div class="row">
-            <div class="col-md-1">
-              {{index+1}}
-            </div>
-            <div class="col-md-4 ellipsis">
-              <input type="checkbox" v-model="item.check">
-              {{item.title}}
-            </div>
-            <div class="col-md-3">
-              <span v-if="item.check" style="margin-left: 4em;margin-right: 4em">已完成</span>
-              <span v-else style="margin-left: 4em;margin-right: 4em">未完成</span>
-            </div>
-            <div class="col-md-3">
-              <span>{{item.date}}</span>
-            </div>
-            <div class="col-md-1">
-             <button type="button" class="btn btn-default btn-xs" @click="deleteTodo(item, index)"><span>&times;</span></button>
+            <div class="col-md-offset-2 col-md-10">
+              <label class="radio-inline"><input type="radio" name="type" value="signUp" v-model="actionType">注册</label>
+              <label class="radio-inline"><input type="radio" name="type" value="login" v-model="actionType">登入</label>
             </div>
           </div>
-
-
-        </li>
-      </ol>
+          <div class="signUp">
+            <!--提交表单-->
+            <form @submit.prevent="signUp" class="form-horizontal" v-if="actionType === 'signUp'">
+              <div class="form-group">
+                <label for="username" class="col-md-2 control-label">用户名</label>
+                <div class="col-md-10">
+                  <input type="text" v-model="formData.username" class="form-control" placeholder="请输入用户名" id="username">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="password" class="col-md-2 control-label">密码</label>
+                <div class="col-md-10">
+                  <input type="password" v-model="formData.password" class="form-control" placeholder="请输入密码" id="password">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-md-10 col-md-offset-2">
+                  <input type="submit" value="注册" class="btn btn-default" v-if="actionType === 'signUp'">
+                  <input type="submit" value="登入" class="btn btn-default" v-else-if="actionType === 'login'">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="login" v-if="actionType === 'login'">
+            <form action="" @submit.prevent="login" class="form-horizontal">
+              <div class="form-group">
+                <label for="username" class="col-md-2 control-label">用户名</label>
+                <div class="col-md-10">
+                  <input type="text" v-model="formData.username" class="form-control" placeholder="请输入用户名" id="username">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="username" class="col-md-2 control-label">密码</label>
+                <div class="col-md-10">
+                  <input type="password" v-model="formData.password" class="form-control" placeholder="请输入用户名" id="username">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-md-10 col-md-offset-2">
+                  <input type="submit" value="登入" class="btn btn-default">
+                </div>
+              </div>
+            </form>
+          </div>
+        </section>
+        <section id="todo" v-if="currentUser">
+          <div style="margin-bottom: 5px">
+            <span>{{currentUser.username}}</span>
+            <button class="btn btn-default btn-xs" @click="logout">登出</button>
+          </div>
+          <div class="newTask form-group">
+            <input type="text" v-model="todotext" @keyup.enter='addTodo' class="form-control">
+          </div>
+          <ol style="list-style: none">
+            <li v-for="(item,index) in todoList" style="font-size: 16px;margin-bottom: 10px">
+              <div class="row">
+                <div class="col-md-1">
+                  {{index+1}}
+                </div>
+                <div class="col-md-4 ellipsis">
+                  <input type="checkbox" v-model="item.check"> {{item.title}}
+                </div>
+                <div class="col-md-3">
+                  <span v-if="item.check" style="margin-left: 4em;margin-right: 4em">已完成</span>
+                  <span v-else style="margin-left: 4em;margin-right: 4em">未完成</span>
+                </div>
+                <div class="col-md-3">
+                  <span>{{item.date}}</span>
+                </div>
+                <div class="col-md-1">
+                  <button type="button" class="btn btn-default btn-xs" @click="deleteTodo(item, index)"><span>&times;</span></button>
+                </div>
+              </div>
+            </li>
+          </ol>
+        </section>
+      </div>
     </div>
   </div>
-</div>
-<script src="bundle.js"></script>
+  <script src="bundle.js"></script>
 </body>
+
 </html>

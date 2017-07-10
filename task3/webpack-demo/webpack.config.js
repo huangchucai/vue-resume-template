@@ -12,6 +12,11 @@ module.exports = {
       {
         test: /\.(svg|woff|woff2|eot|ttf)$/,
         use:['url-loader']
+      },
+      {
+        test: /.vue$/,
+        exclude: /node_modules/,
+        use: ['vue-loader']
       }
     ]
   },
