@@ -150,7 +150,7 @@ var app = new Vue({
       // 清空当前用户数据
       this.currentUser = null;
       // this.currentUser = AV.User.current();
-      window.location.onload();
+      window.location.reload();
     }
   }
 })

@@ -424,7 +424,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_2_vue___default.a({
       // 清空当前用户数据
       this.currentUser = null;
       // this.currentUser = AV.User.current();
-      window.location.onload();
+      window.location.reload();
     }
   }
 })
