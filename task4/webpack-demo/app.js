@@ -45,7 +45,7 @@ var app = new Vue({
     fetchTodos() {
       if (this.currentUser) {
         var query = new AV.Query('AllTodos');
-        query.find().then((todos) => {
+          query.find().then((todos) => {
           let avALLTodos = todos[0]; //理论上只存取一个数据，获取数组的第一项
           let id = avALLTodos.id; // 获取当前数据的id
           this.todoList = JSON.parse(avALLTodos.attributes.content);  //获取数据
@@ -147,7 +147,10 @@ var app = new Vue({
     // 用户登出
     logout() {
       AV.User.logOut();
-      this.currentUser = AV.User.current();
+      // 清空当前用户数据
+      this.currentUser = null;
+      // this.currentUser = AV.User.current();
+      window.location.onload();
     }
   }
 })

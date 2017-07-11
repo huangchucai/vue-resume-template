@@ -319,7 +319,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_2_vue___default.a({
     fetchTodos() {
       if (this.currentUser) {
         var query = new __WEBPACK_IMPORTED_MODULE_3_leancloud_storage___default.a.Query('AllTodos');
-        query.find().then((todos) => {
+          query.find().then((todos) => {
           let avALLTodos = todos[0]; //理论上只存取一个数据，获取数组的第一项
           let id = avALLTodos.id; // 获取当前数据的id
           this.todoList = JSON.parse(avALLTodos.attributes.content);  //获取数据
@@ -421,7 +421,10 @@ var app = new __WEBPACK_IMPORTED_MODULE_2_vue___default.a({
     // 用户登出
     logout() {
       __WEBPACK_IMPORTED_MODULE_3_leancloud_storage___default.a.User.logOut();
-      this.currentUser = __WEBPACK_IMPORTED_MODULE_3_leancloud_storage___default.a.User.current();
+      // 清空当前用户数据
+      this.currentUser = null;
+      // this.currentUser = AV.User.current();
+      window.location.onload();
     }
   }
 })
